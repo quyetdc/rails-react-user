@@ -35,6 +35,10 @@
     @_fetchPeople
       search: search
 
+  #  __handleOnSearchChanged: (search) ->
+  #    @_fetchPeople
+  #      search: search
+
   # This defines how the component is going to be rendered
   render: ->
     cardsNode = @state.people.map (person) ->
