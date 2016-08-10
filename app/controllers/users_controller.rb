@@ -1,14 +1,25 @@
 class UsersController < ApplicationController
   def index
 
-    if params[:search]
-      @users = User.where('name LIKE ?', "%#{params[:search]}%").all
+    @users = if params[:search]
+      User.where('name LIKE ?', "%#{params[:search]}%").all
     else
-      @users = User.all
-    end
+      User.all
+    end.page(params[:page])
 
-    respond_to do |format|
-      format.json { render json: { users: @users }, status: :ok }
-    end
+    data = {
+        users: @users,
+        #  This metadata is useful for paginator
+        # It's supported by Kaminari
+        meta: {
+            current_page: @users.current_page,
+            next_page: @users.next_page,
+            prev_page: @users.prev_page,
+            total_pages: @users.total_pages,
+            total_count: @users.total_count
+        }
+    }
+
+    render json: data, status: :ok
   end
 end

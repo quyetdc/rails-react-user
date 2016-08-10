@@ -53,3 +53,5 @@ gem 'haml-rails', :group => :development
 gem "twitter-bootstrap-rails"
 
 gem 'faker'
+
+gem 'kaminari'
